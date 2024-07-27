@@ -38,7 +38,7 @@ async function getWeatherData() {
     const data = await response.json();
     displayWeatherInfo(data);
   } catch (error) {
-    alert("Error:", error)
+    alert("Error: Please try again")
   }
 }
 
@@ -54,6 +54,8 @@ function displayWeatherInfo(data) {
 
         <p><span class="result">📊</span><strong>Status:</strong> ${data.status} - ${data.message}</p>
        
+        <p><span class="result">🔧</span><strong>Device Type:</strong> ${deviceType}</p>
+
         <p><span class="result">🌡️</span><strong>Temperature:</strong> ${weather.temperature !== null ? weather.temperature + "°C" : "N/A"}</p>
 
         <p><span class="result">💧</span><strong>Humidity:</strong> ${weather.humidity !== null ? weather.humidity + "%" : "N/A"}</p>
