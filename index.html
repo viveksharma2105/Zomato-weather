@@ -4,75 +4,93 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Weather App</title>
+    <title>🌤️ Zomato Weather App</title>
     <link rel="stylesheet" href="style.css" />
-    <!-- <link
-      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap"
-      rel="stylesheet"
-    /> -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet" />
   </head>
 
-  <style>
-    body {
-  background: linear-gradient(to right, #141e30, #243b55);
-  color: #ffffff;
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-
-.center {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  
-  color: white;
-  text-align: center;
-  padding: 10px 0;
-}
-
-#clock {
-  font-size: 24px;
-  font-weight: 800;
-}
-  </style>
-
-  <body >
-    <div class="center">
-      <div id="banner"><span>---YOUR LOCAL TIME---</span></div>
-      <div id="clock"></div>
+  <body>
+    <!-- Animated Background Elements -->
+    <div class="weather-bg">
+      <div class="cloud cloud1">☁️</div>
+      <div class="cloud cloud2">☁️</div>
+      <div class="cloud cloud3">⛅</div>
+      <div class="sun">☀️</div>
     </div>
 
-    <div class="container">
-      <h1> Weather App 🌦️ </h1>
-      
-      <div class="method-selector">
-        <label class="radio-label">
-          <input type="radio" name="fetchMethod" value="coordinates" checked />
-          <span>📍 Coordinates (Lat/Long)</span>
-        </label>
-        <label class="radio-label">
-          <input type="radio" name="fetchMethod" value="locality" />
-          <span>🏘️ Locality Code</span>
-        </label>
+    <!-- Header with Clock -->
+    <header class="header">
+      <div class="header-content">
+        <div class="logo">🌦️ Weather Union</div>
+        <div class="time-display">
+          <span class="time-label">Current Time</span>
+          <div id="clock"></div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <div class="container">
+        <div class="title-section">
+          <h1>🌍 Real-Time Weather Data</h1>
+          <p class="subtitle">Get accurate weather information powered by Zomato Weather Union API</p>
+        </div>
+        
+        <div class="method-selector">
+          <label class="radio-label">
+            <input type="radio" name="fetchMethod" value="coordinates" checked />
+            <span>📍 Coordinates (Lat/Long)</span>
+          </label>
+          <label class="radio-label">
+            <input type="radio" name="fetchMethod" value="locality" />
+            <span>🏘️ Locality Code</span>
+          </label>
+        </div>
+
+        <div class="input-container" id="coordinatesInput">
+          <input type="number" id="latitude" placeholder="Latitude (e.g., 12.933756)" step="any" />
+          <input type="number" id="longitude" placeholder="Longitude (e.g., 77.625825)" step="any" />
+          <button id="submitCoordinates">
+            <span>🔍 Get Weather</span>
+          </button>
+        </div>
+
+        <div class="input-container" id="localityInput" style="display: none;">
+          <input type="text" id="localityCode" placeholder="Locality Code (e.g., ZWL001156)" />
+          <button id="submitLocality">
+            <span>🔍 Get Weather</span>
+          </button>
+        </div>
+
+        <div id="weatherInfo" class="weather-info"></div>
       </div>
 
-      <div class="input-container" id="coordinatesInput">
-        <input type="number" id="latitude" placeholder="Latitude (e.g., 12.933756)" step="any" />
-        <input type="number" id="longitude" placeholder="Longitude (e.g., 77.625825)" step="any" />
-        <button id="submitCoordinates">Get Weather</button>
+      <!-- Info Cards -->
+      <div class="info-section">
+        <div class="info-card">
+          <div class="info-icon">📡</div>
+          <h3>Real-Time Data</h3>
+          <p>Live weather updates from IoT sensors across India</p>
+        </div>
+        <div class="info-card">
+          <div class="info-icon">🎯</div>
+          <h3>Accurate</h3>
+          <p>Hyperlocal weather data with precise measurements</p>
+        </div>
+        <div class="info-card">
+          <div class="info-icon">🌐</div>
+          <h3>Wide Coverage</h3>
+          <p>Multiple localities across major Indian cities</p>
+        </div>
       </div>
+    </main>
 
-      <div class="input-container" id="localityInput" style="display: none;">
-        <input type="text" id="localityCode" placeholder="Locality Code (e.g., ZWL001156)" />
-        <button id="submitLocality">Get Weather</button>
-      </div>
-
-      <div id="weatherInfo" class="weather-info"></div>
-    </div>
+    <!-- Footer -->
+    <footer class="footer">
+      <p>Powered by <strong>Zomato Weather Union API</strong> 🚀</p>
+      <p class="footer-small">Real-time weather data from AWS and Rain gauge systems</p>
+    </footer>
 
     <script src="config.js"></script>
     <script src="script.js"></script>
