@@ -48,6 +48,13 @@
           </label>
         </div>
 
+        <!-- Browse Locations Button -->
+        <div class="browse-section">
+          <button class="browse-btn" onclick="openSearchModal()">
+            🗺️ Browse All Locations (577+ Cities)
+          </button>
+        </div>
+
         <div class="input-container" id="coordinatesInput">
           <input type="number" id="latitude" placeholder="Latitude (e.g., 12.933756)" step="any" />
           <input type="number" id="longitude" placeholder="Longitude (e.g., 77.625825)" step="any" />
@@ -92,7 +99,23 @@
       <p class="footer-small">Real-time weather data from AWS and Rain gauge systems</p>
     </footer>
 
-    <script src="config.js"></script>
+    <!-- Search Modal -->
+    <div id="searchModal" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2>🗺️ Browse Locations</h2>
+          <span class="close-btn" onclick="closeSearchModal()">&times;</span>
+        </div>
+        <div class="modal-body">
+          <div class="search-bar">
+            <input type="text" id="locationSearch" placeholder="🔍 Search city, locality, or code..." />
+          </div>
+          <div id="searchResults" class="search-results"></div>
+        </div>
+      </div>
+    </div>
+
+    <script src="citySearch.js"></script>
     <script src="script.js"></script>
   </body>
 </html>
