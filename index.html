@@ -49,17 +49,29 @@
     <div class="container">
       <h1> Weather App 🌦️ </h1>
       
-      <div class="input-container">
-
-        <input type="number" id="latitude" placeholder="Latitude" />
-        <input type="number" id="longitude" placeholder="Longitude" />
-        <button id="submit"> Submit</button>
-
+      <div class="method-selector">
+        <label class="radio-label">
+          <input type="radio" name="fetchMethod" value="coordinates" checked />
+          <span>📍 Coordinates (Lat/Long)</span>
+        </label>
+        <label class="radio-label">
+          <input type="radio" name="fetchMethod" value="locality" />
+          <span>🏘️ Locality Code</span>
+        </label>
       </div>
 
-      <div id="weatherInfo" class="weather-info">
-        
+      <div class="input-container" id="coordinatesInput">
+        <input type="number" id="latitude" placeholder="Latitude (e.g., 12.933756)" step="any" />
+        <input type="number" id="longitude" placeholder="Longitude (e.g., 77.625825)" step="any" />
+        <button id="submitCoordinates">Get Weather</button>
       </div>
+
+      <div class="input-container" id="localityInput" style="display: none;">
+        <input type="text" id="localityCode" placeholder="Locality Code (e.g., ZWL001156)" />
+        <button id="submitLocality">Get Weather</button>
+      </div>
+
+      <div id="weatherInfo" class="weather-info"></div>
     </div>
 
     <script src="config.js"></script>
