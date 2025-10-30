@@ -1,8 +1,8 @@
 const http = require("http");
 const https = require("https");
 
-const API_KEY = "8275f7d48eed237c18cfe08057f12e79";
-const PORT = 3000;
+const API_KEY = process.env.API_KEY || "8275f7d48eed237c18cfe08057f12e79";
+const PORT = process.env.PORT || 3000;
 
 http
   .createServer((req, res) => {
@@ -36,6 +36,6 @@ http
         res.end(JSON.stringify({ error: "API request failed" }))
       );
   })
-  .listen(PORT, () =>
-    console.log(`🌤️  Server running at http://localhost:${PORT}`)
+  .listen(PORT, '0.0.0.0', () =>
+    console.log(`🌤️  Server running on port ${PORT}`)
   );
