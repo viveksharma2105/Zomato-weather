@@ -32,6 +32,16 @@ radioButtons.forEach(radio => {
 document.getElementById("submitCoordinates").addEventListener("click", getWeatherByCoordinates);
 document.getElementById("submitLocality").addEventListener("click", getWeatherByLocality);
 
+// Loading spinner functions
+function showLoading() {
+  document.getElementById('loadingSpinner').style.display = 'block';
+  document.getElementById('weatherInfo').style.display = 'none';
+}
+
+function hideLoading() {
+  document.getElementById('loadingSpinner').style.display = 'none';
+}
+
 // Fetch weather by coordinates
 async function getWeatherByCoordinates() {
   const latitude = document.getElementById("latitude").value;
@@ -41,6 +51,9 @@ async function getWeatherByCoordinates() {
     alert("Please enter both latitude and longitude.");
     return;
   }
+
+  // Show loading spinner
+  showLoading();
 
   try {
     const response = await fetch(
@@ -52,8 +65,10 @@ async function getWeatherByCoordinates() {
     }
 
     const data = await response.json();
+    hideLoading();
     displayWeatherInfo(data, 'coordinates');
   } catch (error) {
+    hideLoading();
     alert("Error fetching weather data. Please check your coordinates and try again.");
     console.error(error);
   }
@@ -68,6 +83,9 @@ async function getWeatherByLocality() {
     return;
   }
 
+  // Show loading spinner
+  showLoading();
+
   try {
     const response = await fetch(
       `${API_BASE_URL}/weather/locality?locality_id=${localityCode}`
@@ -78,8 +96,10 @@ async function getWeatherByLocality() {
     }
 
     const data = await response.json();
+    hideLoading();
     displayWeatherInfo(data, 'locality');
   } catch (error) {
+    hideLoading();
     alert("Error fetching weather data. Please check your locality code and try again.");
     console.error(error);
   }
