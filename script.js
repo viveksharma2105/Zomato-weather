@@ -6,8 +6,8 @@ setInterval(function() {
   clock.innerHTML = date.toLocaleTimeString();
 }, 1000);
 
-// API Key (now handled by backend server)
-const API_BASE_URL = 'http://localhost:3000';
+// Get the base URL dynamically (works on both local and deployed)
+const BASE_URL = window.location.origin;
 
 // Toggle between input methods
 const radioButtons = document.querySelectorAll('input[name="fetchMethod"]');
@@ -57,7 +57,7 @@ async function getWeatherByCoordinates() {
 
   try {
     const response = await fetch(
-      `${API_BASE_URL}/weather/coordinates?latitude=${latitude}&longitude=${longitude}`
+      `${BASE_URL}/weather/coordinates?latitude=${latitude}&longitude=${longitude}`
     );
 
     if (!response.ok) {
@@ -88,7 +88,7 @@ async function getWeatherByLocality() {
 
   try {
     const response = await fetch(
-      `${API_BASE_URL}/weather/locality?locality_id=${localityCode}`
+      `${BASE_URL}/weather/locality?locality_id=${localityCode}`
     );
 
     if (!response.ok) {
