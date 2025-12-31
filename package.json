@@ -4,10 +4,11 @@
   "description": "Weather app using Zomato Weather Union API",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "build": "echo \"No build step needed for Node server\""
   },
   "engines": {
-    "node": ">=14.0.0"
+    "node": "20.x"
   },
   "keywords": ["weather", "zomato", "api"],
   "author": "",
