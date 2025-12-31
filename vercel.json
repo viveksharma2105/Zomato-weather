@@ -24,6 +24,7 @@
   ],
   "routes": [
     {
+      
       "src": "/weather/(.*)",
       "dest": "server.js"
     },
