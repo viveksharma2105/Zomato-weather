@@ -6,6 +6,10 @@ const path = require("path");
 const API_KEY = process.env.API_KEY || "8275f7d48eed237c18cfe08057f12e79";
 const PORT = process.env.PORT || 3000;
 
+// Log startup info
+console.log(`Starting server with API_KEY: ${API_KEY ? API_KEY.substring(0, 8) + '...' : 'NOT SET'}`);
+console.log(`Environment: ${process.env.NODE_ENV || 'development'}`);
+
 const contentTypes = {
   ".html": "text/html",
   ".css": "text/css",
@@ -15,12 +19,27 @@ const contentTypes = {
 
 http
   .createServer((req, res) => {
+    // Set CORS headers for all responses
     res.setHeader("Access-Control-Allow-Origin", "*");
+    res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
+    res.setHeader("Access-Control-Allow-Headers", "Content-Type");
 
-    if (req.method === "OPTIONS") return res.end();
+    if (req.method === "OPTIONS") {
+      res.writeHead(204);
+      return res.end();
+    }
 
     const [urlPath, query] = req.url.split("?");
     const params = new URLSearchParams(query);
+
+    // Log incoming requests for debugging
+    console.log(`[${new Date().toISOString()}] ${req.method} ${req.url}`);
+
+    // Health check endpoint
+    if (urlPath === "/health") {
+      res.writeHead(200, { "Content-Type": "application/json" });
+      return res.end(JSON.stringify({ status: "ok", timestamp: new Date().toISOString() }));
+    }
 
     // Serve static files
     if (urlPath === "/" || urlPath === "/index.html") {
@@ -71,13 +90,19 @@ http
         let data = "";
         apiRes.on("data", (chunk) => (data += chunk));
         apiRes.on("end", () => {
-          res.writeHead(200, { "Content-Type": "application/json" });
+          // Log for debugging
+          console.log(`API Response Status: ${apiRes.statusCode}`);
+          console.log(`API Response: ${data.substring(0, 200)}`);
+          
+          // Forward the actual status code from the Weather Union API
+          res.writeHead(apiRes.statusCode, { "Content-Type": "application/json" });
           res.end(data);
         });
       })
-      .on("error", () => {
+      .on("error", (err) => {
+        console.error("API request error:", err.message);
         res.writeHead(500, { "Content-Type": "application/json" });
-        res.end(JSON.stringify({ error: "API request failed" }));
+        res.end(JSON.stringify({ error: "API request failed", message: err.message }));
       });
   })
   .listen(PORT, '0.0.0.0', () =>

@@ -60,12 +60,16 @@ async function getWeatherByCoordinates() {
       `${BASE_URL}/weather/coordinates?latitude=${latitude}&longitude=${longitude}`
     );
 
-    if (!response.ok) {
-      throw new Error("Network response was not ok");
-    }
-
     const data = await response.json();
     hideLoading();
+    
+    // Check if API returned an error status
+    if (!response.ok || data.status === "error" || data.status === "failed") {
+      alert(`Error: ${data.message || "Failed to fetch weather data. The API may not have data for these coordinates."}`);
+      console.error("API Error:", data);
+      return;
+    }
+    
     displayWeatherInfo(data, 'coordinates');
   } catch (error) {
     hideLoading();
@@ -91,12 +95,16 @@ async function getWeatherByLocality() {
       `${BASE_URL}/weather/locality?locality_id=${localityCode}`
     );
 
-    if (!response.ok) {
-      throw new Error("Network response was not ok");
-    }
-
     const data = await response.json();
     hideLoading();
+    
+    // Check if API returned an error status
+    if (!response.ok || data.status === "error" || data.status === "failed") {
+      alert(`Error: ${data.message || "Failed to fetch weather data. Please check your locality code."}`);
+      console.error("API Error:", data);
+      return;
+    }
+    
     displayWeatherInfo(data, 'locality');
   } catch (error) {
     hideLoading();
